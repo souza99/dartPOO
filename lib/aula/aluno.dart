@@ -1,6 +1,6 @@
 main() {
-  var aluno = Aluno(CPF: '111.111.111-11', nome: 'Mariana', RA: 1111);
-  aluno.anoNascimento = 2002;
+  var aluno = Aluno(CPF: '486.794.848-90', nome: 'Joao', RA: 2020016376, sobrenome: 'souza');
+  aluno.anoNascimento = 2001;
   aluno._anoNascimento = 2020;
 }
 
@@ -9,14 +9,25 @@ class Aluno {
   String nome;
   String CPF;
   String? email;
+  String sobrenome;
   late int _anoNascimento;
   String? telefone;
 
-  Aluno({required this.RA, required this.nome, required this.CPF}) {}
+  int get anoNascimento => _anoNascimento;
 
-  int get anoNescimento => _anoNascimento;
+  Aluno({required this.RA, required this.nome, required this.CPF, required this.sobrenome});
 
-  set anoNascimento(int anoNescimento) {
-    if (anoNescimento > 0) this.anoNascimento = anoNescimento;
+  set anoNascimento(int anoNascimento) {
+    if (anoNascimento > 0 && anoNascimento < DateTime.now().year) {
+      this._anoNascimento = anoNascimento;
+    }
+  }
+
+  String get nomeCompleto => this.nome + " " + this.sobrenome;
+
+  int calcularIdade() {
+    var dataAtual = DateTime.now().year;
+    var idade = dataAtual - anoNascimento;
+    return idade;
   }
 }
